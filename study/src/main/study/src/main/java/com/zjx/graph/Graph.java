@@ -2,7 +2,7 @@ package com.zjx.graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Stack;
+import java.util.LinkedList;
 
 /**
  * @author zhaojiaxing
@@ -77,6 +77,48 @@ public class Graph {
         for (int i = 0; i < getNumOfVertex(); i++) {
             if (!isVisited[i]) {
                 dfs(isVisited, i);
+            }
+        }
+    }
+
+    private void bfs(boolean[] isVisited,int i){
+        int u; //表示队列的头结点对应的下标
+        int w; //表示邻接节点
+        //队列，记录结点访问的顺序
+        LinkedList queue = new LinkedList();
+        //访问结点,输出结点信息
+        System.out.print(getValueByIndex(i)+"=>");
+        //标记已访问
+        isVisited[i] = true;
+        //将结点加入队列
+        queue.addLast(i);
+
+        while(!queue.isEmpty()){
+            //取出队列的头结点下标
+            u = (Integer)queue.removeFirst();
+            //得到第一个邻接节点的下标
+            w = getFirstNeighbor(u);
+            while(w != -1){
+                //是否访问
+                if(!isVisited[w]){
+                    System.out.print(getValueByIndex(w)+"=>");
+                    //标记已访问
+                    isVisited[w] = true;
+                    //入队
+                    queue.addLast(w);
+                }
+
+                //以u为前驱点寻找w后面的下一个邻接节点
+                w = getNextNeighbor(u,w); //体现出我们的广度优先
+            }
+        }
+    }
+
+    // 遍历所有的结点，都进行广度优先搜索
+    public void bfs(){
+        for(int i = 0; i < getNumOfVertex();i++){
+            if(!isVisited[i]){
+                bfs(isVisited,i);
             }
         }
     }
@@ -156,7 +198,7 @@ public class Graph {
 
 
         //顶点的值
-        String[] vertexValue = {"A", "B", "C", "D", "E", "F", "G"};
+        String[] vertexValue = {"A", "B", "C", "D", "E"};
         //结点个数
         int n = vertexValue.length;
         //创建图
@@ -167,37 +209,32 @@ public class Graph {
         }
         //添加边
         // A-B A-C B-C B-D B-E
-//        graph.insertEdge(0, 1, 1); // A-B
-//        graph.insertEdge(0, 2, 1); // A-C
-//        graph.insertEdge(1, 2, 1); // B-C
-//        graph.insertEdge(1, 3, 1); // B-D
-//        graph.insertEdge(1, 4, 1); // B-E
-//        graph.insertEdge(0, 5, 1); // A-F
-//        graph.insertEdge(5, 6, 1); // F-G
-
         graph.insertEdge(0, 1, 1); // A-B
-        graph.insertEdge(1, 2, 1); // A-C
-        graph.insertEdge(2, 3, 1); // A-D
-        graph.insertEdge(1, 4, 1); // D-E
-        graph.insertEdge(4, 5, 1); // C-F
-        graph.insertEdge(5, 6, 1); // F-G
+        graph.insertEdge(0, 2, 1); // A-C
+        graph.insertEdge(1, 2, 1); // B-C
+        graph.insertEdge(1, 3, 1); // B-D
+        graph.insertEdge(1, 4, 1); // B-E
 
         //显示矩阵
         graph.showGragh();
 
         //进行深度优先遍历
-        System.out.println("深度遍历");
-        graph.dfs(graph.isVisited, 0); // A->B->C->D->E
-        System.out.println();
+//        System.out.println("深度遍历");
+//        graph.dfs(graph.isVisited, 0); // A->B->C->D->E
+//        System.out.println();
 
-        Stack<String> stack = new Stack<>();
-        stack.push("张三");
-        stack.push("李四");
-        stack.push("王五");
-//        stack.add("张三");
-//        stack.add("李四");
-//        stack.add("王五");
-        stack.pop();
-        System.out.println(stack);
+//        Stack<String> stack = new Stack<>();
+//        stack.push("张三");
+//        stack.push("李四");
+//        stack.push("王五");
+////        stack.add("张三");
+////        stack.add("李四");
+////        stack.add("王五");
+//        stack.pop();
+//        System.out.println(stack);
+
+        //进行广度优先搜索
+        System.out.println("广度优先搜索");
+        graph.bfs();
     }
 }
