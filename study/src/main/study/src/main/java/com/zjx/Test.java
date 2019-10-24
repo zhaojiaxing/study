@@ -1,9 +1,12 @@
 package com.zjx;
 
+import java.math.BigDecimal;
+
 /**
  * Created by zjx on 2019/2/16.
  */
 public class Test {
+    private static BigDecimal money;
     public static void main(String[] args){
 //        int x = 5;
 //        boolean b1 = true;
@@ -70,7 +73,11 @@ public class Test {
 //        getStudent(student);
 //        System.out.println(student.getAge());
 
-        System.out.println(TypeEnum.getFieldByType(4));
+//        System.out.println(TypeEnum.getFieldByType(4));
+
+        money = new BigDecimal(5020.0000);
+        BigDecimal bigDecimal = money.divideAndRemainder(new BigDecimal(100))[1];
+        System.out.println(money.divideAndRemainder(new BigDecimal(100))[1].compareTo(new BigDecimal(0)) == 0);
 
     }
 
