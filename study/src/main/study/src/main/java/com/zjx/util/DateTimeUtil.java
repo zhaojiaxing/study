@@ -2,6 +2,7 @@ package com.zjx.util;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -464,6 +465,16 @@ public class DateTimeUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        Calendar calendar = Calendar.getInstance();
+//        ca.add(Calendar.DATE,5);
+//        System.out.println(ca.get(Calendar.DATE));
+        // 5天后
+        calendar.add(Calendar.DATE,5);
+        int day_5 = calendar.get(Calendar.DATE);
+        System.out.println("五天后是" + day_5+"日");
     }
 
 }

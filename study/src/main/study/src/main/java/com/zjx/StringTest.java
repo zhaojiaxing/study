@@ -1,8 +1,5 @@
 package com.zjx;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import com.zjx.bean.Account;
 
 import java.io.UnsupportedEncodingException;
@@ -10,14 +7,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static java.util.Comparator.comparing;
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toCollection;
 
 /**
  * @author zhaojiaxing
@@ -63,16 +55,20 @@ public class StringTest {
 //            add(new Account(17444l,234l));
             add(new Account(17444l,234l,new Date(119,7,16)));
         }};
-        List<Account> uni = set.stream().collect(
-                collectingAndThen(
-                        toCollection(()->new TreeSet<>(comparing(Account::getUserAccountId))),ArrayList::new));
+
+        Map<Integer,List<Account>> map = set.stream().collect(Collectors.groupingBy(a -> a.getDate().getHours()));
+        System.out.println(map);
+
+//        List<Account> uni = set.stream().collect(
+//                collectingAndThen(
+//                        toCollection(()->new TreeSet<>(comparing(Account::getUserAccountId))),ArrayList::new));
 
 //        Optional<Account> opt = uni.stream().min(Comparator.comparing(Account::getDate));
 //        System.out.println(opt.get());
 //        System.out.println(uni);
 
-        String s = uni.stream().map(Account::getUserAccountId).map(String::valueOf).distinct().collect(Collectors.joining(","));
-        System.out.println(s);
+//        String s = uni.stream().map(Account::getUserAccountId).map(String::valueOf).distinct().collect(Collectors.joining(","));
+//        System.out.println(s);
 //        accounts.removeIf(a -> a.getUserAccountId().equals(172l));
 //        System.out.println(accounts);
 //        Map<Long, List<Account>> map = accounts.stream().collect(Collectors.groupingBy(Account::getUserAccountId));
