@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 /**
  * 日期时间工具类
  *
- * @author hunter
+ * @author zhaojiaxing
  * @version 1.0
  * @since 2018/9/19 14:40
  */
@@ -73,9 +73,13 @@ public class DateTimeUtil {
      * @return
      */
     public static Date strToDate(final String str, String dateFormat) {
-        if (str == null || str.trim().length() == 0) return null;
+        if (str == null || str.trim().length() == 0) {
+            return null;
+        }
         try {
-            if (dateFormat == null || dateFormat.length() == 0) dateFormat = "yyyy-MM-dd HH:mm:ss";
+            if (dateFormat == null || dateFormat.length() == 0) {
+                dateFormat = "yyyy-MM-dd HH:mm:ss";
+            }
             DateFormat fmt = new SimpleDateFormat(dateFormat);
             return fmt.parse(str.trim());
 
@@ -325,15 +329,18 @@ public class DateTimeUtil {
         int hour;
         int minute;
         int second;
-        if (time <= 0) return "00分00秒";
-        else {
+        if (time <= 0) {
+            return "00分00秒";
+        } else {
             minute = time / 60;
             if (minute < 60) {
                 second = time % 60;
                 timeStr = unitFormat(minute) + "分" + unitFormat(second) + "秒";
             } else {
                 hour = minute / 60;
-                if (hour > 99) return "99小时59分59秒";
+                if (hour > 99) {
+                    return "99小时59分59秒";
+                }
                 minute = minute % 60;
                 second = time - hour * 3600 - minute * 60;
                 timeStr = unitFormat(hour) + "小时" + unitFormat(minute) + "分" + unitFormat(second) + "秒";
