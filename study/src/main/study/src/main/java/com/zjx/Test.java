@@ -1,9 +1,14 @@
 package com.zjx;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Arrays;
+
 /**
  * Created by zjx on 2019/2/16.
  */
 public class Test {
+    private static BigDecimal money;
     public static void main(String[] args){
 //        int x = 5;
 //        boolean b1 = true;
@@ -70,8 +75,55 @@ public class Test {
 //        getStudent(student);
 //        System.out.println(student.getAge());
 
-        System.out.println(TypeEnum.getFieldByType(4));
+//        System.out.println(TypeEnum.getFieldByType(4));
 
+//        money = new BigDecimal(5020.0000);
+////        BigDecimal bigDecimal = money.divideAndRemainder(new BigDecimal(100))[1];
+////        System.out.println(money.divideAndRemainder(new BigDecimal(100))[1].compareTo(new BigDecimal(0)) == 0);
+
+//        LinkedList<String> list = new LinkedList();
+//        list.addFirst("ss");
+//        list.addFirst("dd");
+//        list.addFirst("ff");
+//        list.addFirst("gg");
+//        List<String> strings = new ArrayList<>(list);
+//        list.stream().forEach(l -> System.out.println(l));
+//        Student student = new Student();
+////        getStudent(student);
+////        System.out.println(student.getAge());
+
+//        String idcard = "110101199011124497";
+////        System.out.println(CardUtil.getAge(idcard));
+//        test();
+//        System.out.println(CardUtil.delEndZero("345101"));
+//        getPercent();
+//
+        int[] a = {1,7,4,5,6,3};
+////        int[] b = a;
+////        b[4] = 56;
+////        System.out.println(Arrays.toString(a));
+////        int[] c = Arrays.copyOf(a,a.length+5);
+////        c[1] = 1234;
+//        Arrays.sort(a,Collections.reverseOrder());
+//        System.out.println(Arrays.toString(a));
+
+//        int[] a = {9, 8, 7, 2, 3, 4, 1, 0, 6, 5};
+//        Arrays.sort(a);
+//        for(int arr:a) {
+//            System.out.print(arr + " ");
+//        }
+
+//        for(int i = 0; i < 10;i++){
+//            System.out.println(Arrays.toString(lottery(new int[49],10)));
+//        }
+//        int[] z = Arrays.copyOfRange(a,2,5);
+        int[] d = new int[100000000];
+        for(int i = 0;i < d.length;i++){
+            d[i] = i+1;
+        }
+        //二分搜索
+        int boo = Arrays.binarySearch(d,400001);
+        System.out.println(boo);
     }
 
     private static void getStr(String str){
@@ -82,4 +134,35 @@ public class Test {
         student.setAge(12);
         student.setUsername("zzz");
     }
+
+    /**
+     * 获取百分比
+     */
+    private static void getPercent(){
+        int diliverNum=3;
+        int queryMailNum=9;
+        // 创建一个数值格式化对象
+        NumberFormat numberFormat = NumberFormat.getPercentInstance();
+        // 设置精确到小数点后2位
+        numberFormat.setMaximumFractionDigits(2);
+        String result = numberFormat.format((float)diliverNum/(float)queryMailNum);
+        System.out.println("百分比为:" + result);
+    }
+
+    private static int[] lottery(int[] numbers,int k){
+        int[] result = new int[k];
+        int n = numbers.length;
+        for(int i = 0; i< n;i++){
+            numbers[i] = i+1;
+        }
+        for(int i = 0;i < k;i++){
+            int r = (int)(Math.random()*n);
+            result[i] = numbers[r];
+            numbers[r] = numbers[n - 1];
+            n--;
+        }
+        Arrays.sort(result);
+        return result;
+    }
+
 }
