@@ -18,7 +18,5 @@ gen
 *.zip
 *.tar.gz
 *.rar
-
-
 .gitignore
 target/generated-sources/
