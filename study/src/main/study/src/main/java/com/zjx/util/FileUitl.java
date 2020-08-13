@@ -1,4 +1,4 @@
-package com.zjx;
+package com.zjx.util;
 
 import java.io.*;
 import java.util.Base64;

@@ -1,8 +1,6 @@
 package com.zjx;
+import com.zjx.util.HttpUtil2;
 
-import sun.net.www.http.HttpClient;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 

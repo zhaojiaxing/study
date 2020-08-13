@@ -14,6 +14,10 @@ import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
 import org.springframework.util.StringUtils;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -204,7 +208,7 @@ public class BeanUtil {
                 if (filedTypeName.equalsIgnoreCase("java.util.date")) {
                     String dateTimestamp = value.toString();
                     if (!dateTimestamp.equalsIgnoreCase("null")) {
-                        value =  DateTimeUtil.strToDate(dateTimestamp,DateTimeUtil.YYYY_MM_DDHHMMSS);
+                        value = DateTimeUtil.strToDate(dateTimestamp, DateTimeUtil.YYYY_MM_DDHHMMSS);
                     }
                 }
                 BeanUtils.setProperty(entity, fieldName, value);
@@ -233,6 +237,29 @@ public class BeanUtil {
             e.printStackTrace();
         }
         return result;
+    }
+
+    /**
+     * 利用序列化进行克隆
+     * @param obj
+     * @return: T
+     * @author: zhaojiaxing
+     * @createTime: 2020/07/21 11:09
+     */
+    public static <T> T CloneObj(T obj) {
+        T retobj = null;
+        try {
+            //写入流中
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(obj);
+            //从流中读取
+            ObjectInputStream ios = new ObjectInputStream(new ByteArrayInputStream(baos.toByteArray()));
+            retobj = (T) ios.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return retobj;
     }
 
 }
